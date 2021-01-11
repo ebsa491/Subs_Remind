@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Subs Remind - New Subs</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='add/style.css') }}">
+    </head>
+    <body>
+        <form autocomplete="off">
+            <div id="focus"></div>
+            <h1>New</h1>
+            <input type="text" half placeholder="Title" autocomplete="no">
+            <input type="text" placeholder="Description" autocomplete="no">
+            <input type="text" half placeholder="Price" autocomplete="no">
+            <input type="submit" value="Send it">
+        </form>
+        <script src="{{ url_for('static', filename='add/main.js') }}"/>
+    </body>
+</html>
