@@ -12,6 +12,22 @@
             <input type="text" half placeholder="Price" autocomplete="no">
             <input type="submit" value="Send it">
         </form>
+        <div class="container text-center">
+            <input type="text" id="datepicker" class="date" readonly="readonly" placeholder="Date">
+        </div>
+        <script>
+            $("#datepicker").datepicker({
+                firstDay: 1,
+                showOtherMonths: true,
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "dd.mm.yy"
+            });
+
+            $(".date").mousedown(function() {
+                $(".ui-datepicker").addClass("active");
+            });
+        </script>
         <script src="{{ url_for('static', filename='add/main.js') }}"/>
     </body>
 </html>
