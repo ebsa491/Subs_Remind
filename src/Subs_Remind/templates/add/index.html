@@ -10,24 +10,58 @@
             <input type="text" half placeholder="Title" autocomplete="no">
             <input type="text" placeholder="Description" autocomplete="no">
             <input type="text" half placeholder="Price" autocomplete="no">
+            <!-- https://uxsolutions.github.io/bootstrap-datepicker/?markup=input&format=&weekStart=&startDate=&endDate=&startView=0&minViewMode=0&maxViewMode=4&todayBtn=false&clearBtn=false&language=en&orientation=auto&multidate=&multidateSeparator=&keyboardNavigation=on&forceParse=on#sandbox -->
             <input type="submit" value="Send it">
         </form>
-        <div class="container text-center">
-            <input type="text" id="datepicker" class="date" readonly="readonly" placeholder="Date">
-        </div>
-        <script>
-            $("#datepicker").datepicker({
-                firstDay: 1,
-                showOtherMonths: true,
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: "dd.mm.yy"
+    </body>
+    <script>
+        const FORM = $("form"); // set form or other element here
+        const TYPES = ["input[type=text], input[type=submit]"]; // set which elements get targeted by the focus
+        const FOCUS = $("#focus"); // focus element
+
+        // function for positioning the div
+        function position(e) {
+        // get position
+        var props = {
+            top: e.offset().top,
+            left: e.offset().left,
+            width: e.outerWidth(),
+            height: e.outerHeight(),
+            radius: parseInt(e.css("border-radius"))
+        };
+
+        // set position
+        FOCUS.css({
+            top: props.top,
+            left: props.left,
+            width: props.width,
+            height: props.height,
+            "border-radius": props.radius
+        });
+
+        FOCUS.fadeIn(200);
+        }
+
+        FORM.find(TYPES.join()).each(function(i) {
+        // when clicking an input defined in TYPES
+        $(this).focus(function() {
+            el = $(this);
+
+            // adapt size/position when resizing browser
+            $(window).resize(function() {
+            position(el);
             });
 
-            $(".date").mousedown(function() {
-                $(".ui-datepicker").addClass("active");
-            });
-        </script>
-        <script src="{{ url_for('static', filename='add/main.js') }}"/>
-    </body>
+            position(el);
+        });
+        });
+
+        FORM.on("focusout", function(e) {
+        setTimeout(function() {
+            if (!e.delegateTarget.contains(document.activeElement)) {
+            FOCUS.fadeOut(200);
+            }
+        }, 0);
+        });
+    </script>
 </html>
