@@ -59,6 +59,22 @@
     float: left;
     margin-right: 30px;
   }
+  input[type=date] {
+    width: calc(100% - 30px);
+    margin-bottom: 30px;
+    border: 2px solid #868283;
+  }
+  input[type=date]:placeholder-shown {
+    border: 2px solid #EAE4DA;
+  }
+  input[type=date]::placeholder {
+    color: #A3A5AA;
+  }
+  input[type=date][half] {
+    width: calc(50% - 30px);
+    float: left;
+    margin-right: 30px;
+  }
   input[type=submit] {
     background: #D09B52;
     color: #EAE4DA;
