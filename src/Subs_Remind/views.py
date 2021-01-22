@@ -24,3 +24,9 @@ def new():
 @app.route('/dashboard/edit')
 def edit():
     return render_template("new/index.html")
+
+
+
+@app.errorhandler(404)
+def error_404(err):
+    return render_template("error/404.html"), 404
