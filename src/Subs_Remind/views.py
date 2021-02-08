@@ -3,6 +3,8 @@ The routes of the project. (mt`V` pattern)
 """
 
 from Subs_Remind import app
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from flask import (
     render_template,
     request,
@@ -11,11 +13,19 @@ from flask import (
 )
 
 
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+)
+
+
+@limiter.limit("15 per 2 minutes")  # For brute force
 @app.route('/')
 def home():
     return render_template("home/index.html")
 
 
+@limiter.limit("15 per 2 minutes")  # For brute force
 @app.route('/login', methods=["GET", "POST"])
 def login():
     if request.method == "GET":
@@ -23,7 +33,7 @@ def login():
     elif request.method == "POST":
         return "POST"
 
-
+@limiter.limit("15 per 2 minutes")  # For brute force
 @app.route('/register', methods=["GET", "POST"])
 def register():
     if request.method == "GET":
